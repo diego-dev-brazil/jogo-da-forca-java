@@ -3,7 +3,7 @@ package Forca;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import services.LimpaTela;
+import Forca.services.LimpaTela;
 
 public class Boneco {
     public Boneco(){

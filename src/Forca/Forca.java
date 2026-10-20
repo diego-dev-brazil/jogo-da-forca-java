@@ -1,19 +1,19 @@
+
 package Forca;
 
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-import model.Menu;
-import services.FilmeService;
-import services.LimpaTela;
-import services.MenuService;
+import Forca.model.Menu;
+import Forca.services.FilmeService;
+import Forca.services.LimpaTela;
+import Forca.services.MenuService;
 
 public class Forca {
 	public static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args) throws IOException, InterruptedException {
-		Boneco boneco = new Boneco();
+	public static void forca() throws IOException, InterruptedException {
 		FilmeService filme = new FilmeService();
 
 		// DESENHANDO
@@ -24,7 +24,7 @@ public class Forca {
 			e.printStackTrace();
 		}
 		// ========================
-		Menu menu = new Menu(boneco, filme.roletarFilme());
+		Menu menu = new Menu(new Boneco(), filme.roletarFilme());
 		String secreta = MenuService.gerarPalavraSecreta(menu);
 		menu.setSecreta(secreta);
 
@@ -67,6 +67,7 @@ public class Forca {
 			}
 			MenuService.MenuPrincipal(menu);
 			char letra = sc.next().charAt(0);
+			sc.nextLine();
 			while (true) {
 				if (menu.GetLetras().indexOf(Character.toUpperCase(letra)) != -1) {
 					System.out.println("Caractere ja utilizado, tente novamente");
@@ -80,12 +81,11 @@ public class Forca {
 
 			if (letra == '#') {
 				System.out.println("Insira nome do filme inteiro se for capaz: ");
-				sc.next();
 				String palavra = sc.nextLine();
 				if (MenuService.verificarFilme(menu, palavra)) {
 					System.out.println("");
 				} else {
-					boneco.DiminuirBoneco();
+					menu.getBoneco().DiminuirBoneco();
 				}
 			}else {
 				menu.AdicionarLetra(Character.toUpperCase(letra));
@@ -102,7 +102,7 @@ public class Forca {
 				}
 
 			 else if(letra != '#') {
-				boneco.DiminuirBoneco();
+					menu.getBoneco().DiminuirBoneco();
 			}
 		}
 	}
